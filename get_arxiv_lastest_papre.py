@@ -43,10 +43,13 @@ def get_arxiv_papers(current_paper_list):
     result = {}
     for paper in papers:
         index += 1
-        title = paper.find('div', class_='list-title mathjax').text.strip().replace('Title:', '').strip()
-        author = paper.find('div', class_='list-authors').text.strip().replace('Authors:', '')
-        category = paper.find('div', class_='list-subjects').text.strip().replace('Subjects:', '')
-        abstract = paper.find('p', class_='mathjax').text.strip()
+        try:
+            title = paper.find('div', class_='list-title mathjax').text.strip().replace('Title:', '').strip()
+            author = paper.find('div', class_='list-authors').text.strip().replace('Authors:', '')
+            category = paper.find('div', class_='list-subjects').text.strip().replace('Subjects:', '')
+            abstract = paper.find('p', class_='mathjax').text.strip()
+        except:
+            continue
 
         # 判断当前论文是否已经保存过
         if current_paper_list is not None and title in current_paper_list:
